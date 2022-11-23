@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
+use App\Models\SignIn_Model;
+
+use Illuminate\Http\Request;
+use Illuminate\Routing\ControllerDispatcher;
+
+class SignIn extends Controller
+{
+    public function HandleSignIn(Request $request){
+        $passDB = DB::table('table_users')->where('username',$request->username)->get();
+        if(count($passDB) > 0 && $passDB[0]->password === md5($request->password)){
+            return view('login_success');
+        } else {
+            return redirect()->back()->with('err', '1234');
+        }
+    }
+}
