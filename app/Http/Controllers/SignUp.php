@@ -13,14 +13,12 @@ class SignUp extends Controller
             $user = SignUp_Model::create([
                 'username' => $request->username,
                 'password' => md5($request->password),
+                'role'=> '0',
             ]);
         } else {
             return redirect()->back()->with('err','1234');
         }
-        
-        $all  = SignUp_Model::all();
-        
-        return view('showall', compact('all'));
+        return view('signin');
        
     }
 }
